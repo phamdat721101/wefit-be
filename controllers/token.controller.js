@@ -73,18 +73,26 @@ exports.user_balance = async(req,res, next) =>{
 }
 
 exports.claim_token = async(req, res, next) =>{
-        const scriptURLGet = "https://script.google.com/macros/s/AKfycbwpKywlfgvuc_P_6ZYtAArtiKW9pgEmGuuKpmWOsqcAqQbG2C1My2kaV3eQkUdMicTK/exec"
-        const url = `${scriptURLGet}?email=${req.body.email}`;
-        const user_info = await axios.get(url);
-        let to_adr = user_info.data.wallet
-        let amount =  100
-        let user = req.body.email
-        let contract_params = {
-            from: '0x90de83fd2cd4d01660cd6909692568a14661cdf1',
-            gasPrice: 25000000000,
-            gasLimit: 8500000,
+        // const scriptURLGet = "https://script.google.com/macros/s/AKfycbwpKywlfgvuc_P_6ZYtAArtiKW9pgEmGuuKpmWOsqcAqQbG2C1My2kaV3eQkUdMicTK/exec"
+        // const url = `${scriptURLGet}?email=${req.body.email}`;
+        // const user_info = await axios.get(url);
+        // let to_adr = user_info.data.wallet
+        // let amount =  100
+        // let user = req.body.email
+        // let contract_params = {
+        //     from: '0x90de83fd2cd4d01660cd6909692568a14661cdf1',
+        //     gasPrice: 25000000000,
+        //     gasLimit: 8500000,
+        // }
+        // let receipt = await contract.methods.vault_transfer(to_adr, amount, user).send(Object.assign(contract_params));
+        // console.log("Transaction receipt: ", receipt)
+        // res.json(receipt)
+
+        let resp = {
+            "user": req.body.adr, 
+            "step": req.body.step,
+            "amount": 100,
+            "tx_hash": "0x90de83fd2cd4d01660cd6909692568a14661cdf1"
         }
-        let receipt = await contract.methods.vault_transfer(to_adr, amount, user).send(Object.assign(contract_params));
-        console.log("Transaction receipt: ", receipt)
-        res.json(receipt)
+        res.json(resp)
 }
